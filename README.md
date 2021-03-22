@@ -14,7 +14,7 @@ L'objectif de ce projet est de crée une application mobile sur laquelle on peut
 >  - Le schema BDD
 
 
-## Maquettes: AdobeXD [![Doc AdobeXD](https://xd.adobe.com/view/a4bce071-752a-4a9e-9272-f13f8791b708-f1ef/)
+## Maquettes: AdobeXD [![Doc Adobe](https://xd.adobe.com/view/a4bce071-752a-4a9e-9272-f13f8791b708-f1ef/)
 
 >Vous retrouverez ici les maquettes du projet sous adobeXD (document disponnible en ligne).
 > Il contient le premier jet des maquettes: 
