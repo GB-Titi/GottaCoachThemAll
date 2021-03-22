@@ -1,0 +1,23 @@
+{
+  "name": "api-gcta-dev",
+  "version": "1.0.0",
+  "description": "NodeJS + ExpressJS api for our web app Gotta Coach Them' All",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GB-Titi/GottaCoachThemAll.git"
+  },
+  "author": "Samir Massoundi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GB-Titi/GottaCoachThemAll/issues"
+  },
+  "homepage": "https://github.com/GB-Titi/GottaCoachThemAll#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
