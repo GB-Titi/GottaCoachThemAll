@@ -62,8 +62,9 @@ Vous retrouverez ici les maquettes du projet sous adobeXD (document disponnible 
 
 > ## Diagramme BDD :
 >![Screenshot](img/images_docs/diagramme_bdd.png)
+>
+> ***Légende :*** 
 > <pre>
-> ***Légende :***
 >  " - " --> One-to-One     |     ">" --> Many-to-one     |    "<" --> One-to-many   
 >  </pre>
 >
