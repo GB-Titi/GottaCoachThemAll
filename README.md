@@ -7,7 +7,7 @@ Le but est de permettre au client de progresser quelque soit son niveau sur un j
 
 Ce projet est un travail en collaboration entre Massoundi Samir & Matteoli Tristan, deux étudiants en bachelor 3 technologies du Web chez Ynov Campus Aix-en-Provence.
 
-*GottaCoachThemAll* est notre application pour le `Suivi de projet Tehno WEB d'Ynov` visant à crée ou répondre à une demande de projet réel d'un client. Nous avons donc décidé de monter notre propre projet et nous serons donc nos propres clients.
+***GottaCoachThemAll*** est notre application pour le `Suivi de projet Tehno WEB d'Ynov` visant à crée ou répondre à une demande de projet réel d'un client. Nous avons donc décidé de monter notre propre projet et nous serons donc nos propres clients.
 
 ## Instruction d'installation et d'utilisation
 
