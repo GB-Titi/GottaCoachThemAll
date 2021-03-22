@@ -1,5 +1,20 @@
 # GottaCoachThemAll
+
+## Description du projet 
 L'objectif de ce projet est de crée une application mobile sur laquelle on peut réserver des coachings de jeux vidéos, suivre des tutoriels, ou se renseigner sur divers aspect du e-sport, des compétitions, et des évènements à venir.
+
+Le but est de permettre au client de progresser quelque soit son niveau sur un jeu donné, le tout via l'aide de coachs qui sont des joeurs professionels, ainsi que par le biais de tutos vidéos sur des sujets précis. (Comment ajuster son aim dans un jeu de tir, quels bonnes tactiques adopter dans telle ou telle situation etc...)
+
+Ce projet est un travail en collaboration entre Massoundi Samir & Matteoli Tristan, deux étudiants en bachelor 3 technologies du Web chez Ynov Campus Aix-en-Provence.
+
+***GottaCoachThemAll*** est notre application pour le `Suivi de projet Tehno WEB d'Ynov` visant à crée ou répondre à une demande de projet réel d'un client. Nous avons donc décidé de monter notre propre projet et nous serons donc nos propres clients.
+
+## Instruction d'installation et d'utilisation
+
+ - Téléchargez le git du projet complet depuis la branche master.
+ - Si vous n'avez pas node d'installer utilisez la commande -> `npm install`.
+ - Nous utilson également `nodemon` afin de lancer l'application. Pour l'installer -> `npm install -g nodemon`.
+ - Pour lancer l'application utilisez la commande -> `nodemon ./index.js localhost 8080` (permet de le faire tourner en local. Nous utiliserons un serveur lors de la mise en production).
 
 ## Technologies choisies
 
@@ -36,3 +51,18 @@ Vous retrouverez ici les maquettes du projet sous adobeXD (document disponnible 
   >- Un template de liste de coachs
   >- Le template de la page perso des coachs
 
+
+
+# Structure de l'application :
+> ## Flowchart :
+>![Screenshot](img/images_docs/flowchart.png)
+
+
+
+> ## Diagramme BDD :
+>![Screenshot](img/images_docs/diagramee_bdd.png)
+
+
+## Droits d’auteurs et informations sur la licence
+
+>A définir
