@@ -12,3 +12,16 @@ L'objectif de ce projet est de crée une application mobile sur laquelle on peut
 >  - Les maquettes
 >  - Le Flow-Chart
 >  - Le schema BDD
+
+
+## Maquettes: AdobeXD [![Maqu AdobeXD](https://xd.adobe.com/view/a4bce071-752a-4a9e-9272-f13f8791b708-f1ef/)
+
+>Vous retrouverez ici les maquettes du projet sous adobeXD (document disponnible en ligne).
+> Il contient le premier jet des maquettes: 
+>  - Le menu
+>  - La page d'accueil
+>  - Le menu ouvert
+>  - La liste des jeux
+>  - Un template de liste de coachs
+>  - Le template de la page perso des coachs
+
