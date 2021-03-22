@@ -62,6 +62,16 @@ Vous retrouverez ici les maquettes du projet sous adobeXD (document disponnible 
 
 > ## Diagramme BDD :
 >![Screenshot](img/images_docs/diagramme_bdd.png)
+>
+> ***Références :***
+> - Ref: Users.id - Reservations.user_id
+> - Ref: Coachs.id - Reservations.coach_id
+> - Ref: Roles.id - Users.id_role
+> - Ref: Users.id - Coachs.id_user
+> - Ref: Jeux.id - Coachs.id_jeu
+> - Ref: Coachs.id - Tuto_coach.id_coach
+> - Ref: Team.id - Coachs.id_team
+> - Ref: Coachs.id - Coaching.id_coach
 
 
 ## Droits d’auteurs et informations sur la licence
