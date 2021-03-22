@@ -11,10 +11,10 @@ Ce projet est un travail en collaboration entre Massoundi Samir & Matteoli Trist
 
 ## Instruction d'installation et d'utilisation
 
-> Téléchargez le git du projet complet depuis la branche master.
-> Si vous n'avez pas node d'installer utilisez la commande -> `npm install`.
-> Nous utilson également `nodemon` afin de lancer l'application. Pour l'installer -> `npm install -g nodemon`.
-> Pour lancer l'application utilisez la commande -> `nodemon ./index.js localhost 8080` (permet de le faire tourner en local. Nous utiliserons un serveur lors de la mise en production).
+> - Téléchargez le git du projet complet depuis la branche master.
+> - Si vous n'avez pas node d'installer utilisez la commande -> `npm install`.
+> - Nous utilson également `nodemon` afin de lancer l'application. Pour l'installer -> `npm install -g nodemon`.
+> - Pour lancer l'application utilisez la commande -> `nodemon ./index.js localhost 8080` (permet de le faire tourner en local. Nous utiliserons un serveur lors de la mise en production).
 
 ## Technologies choisies
 
