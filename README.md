@@ -61,7 +61,7 @@ Vous retrouverez ici les maquettes du projet sous adobeXD (document disponnible 
 
 
 > ## Diagramme BDD :
->![Screenshot](img/images_docs/diagramee_bdd.png)
+>![Screenshot](img/images_docs/diagramme_bdd.png)
 
 
 ## Droits d’auteurs et informations sur la licence
