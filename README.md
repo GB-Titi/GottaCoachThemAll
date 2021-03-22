@@ -50,6 +50,7 @@ Vous retrouverez ici les maquettes du projet sous adobeXD (document disponnible 
   >- La liste des jeux
   >- Un template de liste de coachs
   >- Le template de la page perso des coachs
+  >
 >![Screenshot](img/images_docs/maquettes_v1.png)
 
 
