@@ -36,3 +36,13 @@ Vous retrouverez ici les maquettes du projet sous adobeXD (document disponnible 
   >- Un template de liste de coachs
   >- Le template de la page perso des coachs
 
+
+
+# Structure de l'application :
+> ## Flowchart :
+>![Screenshot](img/images_docs/flowchart.png)
+
+
+
+> ## Diagramme BDD :
+>![Screenshot](img/images_docs/diagramee_bdd.png)
