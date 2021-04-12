@@ -4,9 +4,12 @@ const app = express();
 const jeux = require("./assets/json/games.json");
 const port = 8080;
 app.use(express.json());
+const { body,validationResult } = require('express-validator');
 
 ///Database Connection
 const mysql = require("mysql");
+const { pseudoRandomBytes } = require("crypto");
+const { mainModule } = require("process");
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -20,10 +23,14 @@ db.connect(function (err) {
   console.log("connecté à la base de données");
 });
 
+
 ///API EXPRESS
+app.use(express.urlencoded({
+    extended: true
+  }))
 
 app.listen(port, () => {
-  console.log(`serveur à l'écoute : http://localhost:${port}`);
+  console.log(`serveur à l'écoute : http://localhost:8000`);
 });
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
@@ -45,6 +52,10 @@ app.get("/listeMembres", (req, res) => {
   res.send("listeMembres");
 });
 
+app.get("/ajouterJeu", function (req, res) {
+    res.sendFile(path.join(__dirname + "/ajouterJeu.html"));
+  });
+
 app.get("/listeJeux", (req, res) => {
   //   res.send("liste Jeux");
   //   res.status(200).json(jeux);
@@ -65,43 +76,73 @@ app.get("/listeJeux/:id", (req, res) => {
   });
 });
 
-app.post("/listeJeux", (req, res) => {
-//   jeux.push(req.body);
-  jeu= req.body.jeu;
-  description= req.body.description;
-  db.query("INSERT INTO jeux(jeu,description) VALUES (?,?) ",[jeu, description], function(error, results)
-  {
-    if (error) throw error;
-    return res.status(200).send({results, message: 'game has been created'});
-  });
+app.post("/addGame", (req, res) => {
+  //   jeux.push(req.body);
+  jeu = req.body.jeu;
+  description = req.body.description;
 });
+
+app.post("/addUser",
+
+    body('firstname').isString(), 
+    body('lastname').isString(),
+    body('mail').isEmail(),
+    body('pseudo').isString(),
+    body('password').isLength({min: 5}),
+    (req, res)=> {
+    //   jeux.push(req.body);
+    firstname = req.body.firstname ;
+    lastname = req.body.lastname ;
+    pseudo = req.body.pseudo ;
+    mail = req.body.mail ;
+    password = req.body.password ;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    console.log(firstname, lastname, pseudo, mail, password);
+    db.query(
+      "INSERT INTO users(firstname,lastname,pseudo,mail,mdp,id_role ) VALUES (?,?,?,?,?,?) ",
+      [firstname, lastname, pseudo, mail, password, "1"],
+      function (error, results) {
+        if (error) throw error;
+        return res
+          .status(200)
+          .send({ results, message: "User has been created" });
+      }
+    );
+  });
 
 app.put("/listeJeux/:id", (req, res) => {
   const id = parseInt(req.params.id);
   jeu = req.body.jeu;
   description = req.body.description;
 
-//   let jeu = jeux.find((jeu) => jeu.id === id);
-//   jeu.jeu = req.body.jeu;
-//   jeu.image = req.body.image;
-//   jeu.description = req.body.description;
-//   res.status(200).json(jeu);
+  //   let jeu = jeux.find((jeu) => jeu.id === id);
+  //   jeu.jeu = req.body.jeu;
+  //   jeu.image = req.body.image;
+  //   jeu.description = req.body.description;
+  //   res.status(200).json(jeu);
 
-    db.query("UPDATE jeux SET jeu=?, desc =? Where id = ?",[jeu, description, id], function(error, result)
-    {
-        if(error) throw error;
-        return res.status(200).send({result, message: 'game has been updated'});
-    })
+  db.query(
+    "UPDATE jeux SET jeu=?, desc =? Where id = ?",
+    [jeu, description, id],
+    function (error, result) {
+      if (error) throw error;
+      return res.status(200).send({ result, message: "game has been updated" });
+    }
+  );
 });
 
 app.delete("/listeJeux/:id", (req, res) => {
   const id = parseInt(req.params.id);
-//   let jeu = jeux.find((jeux) => jeux.id === id);
-//   jeux.splice(jeux.indexOf(jeu), 1);
-//   res.status(200).json(jeux);
-    db.query('DELETE FROM jeux WHERE id = ?', [id], function(error, results)
-    {
-        if (error) throw error ;
-        return res.status(200).send({results, message: 'game has been deleted'});
-    })
+  //   let jeu = jeux.find((jeux) => jeux.id === id);
+  //   jeux.splice(jeux.indexOf(jeu), 1);
+  //   res.status(200).json(jeux);
+  db.query("DELETE FROM jeux WHERE id = ?", [id], function (error, results) {
+    if (error) throw error;
+    return res.status(200).send({ results, message: "game has been deleted" });
+  });
 });
