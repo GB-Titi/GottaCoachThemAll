@@ -4,7 +4,7 @@ const app = express();
 const jeux = require("./assets/json/games.json");
 const port = 8080;
 app.use(express.json());
-const { body,validationResult } = require('express-validator');
+const { body, validationResult } = require("express-validator");
 
 ///Database Connection
 const mysql = require("mysql");
@@ -15,7 +15,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "gotta_coach_them_all",
+  database: "gotta-coach-them-all",
 });
 
 db.connect(function (err) {
@@ -23,14 +23,15 @@ db.connect(function (err) {
   console.log("connecté à la base de données");
 });
 
-
 ///API EXPRESS
-app.use(express.urlencoded({
-    extended: true
-  }))
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 app.listen(port, () => {
-  console.log(`serveur à l'écoute : http://localhost:8000`);
+  console.log(`serveur à l'écoute : http://localhost:8080`);
 });
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
@@ -53,8 +54,8 @@ app.get("/listeMembres", (req, res) => {
 });
 
 app.get("/ajouterJeu", function (req, res) {
-    res.sendFile(path.join(__dirname + "/ajouterJeu.html"));
-  });
+  res.sendFile(path.join(__dirname + "/ajouterJeu.html"));
+});
 
 app.get("/listeJeux", (req, res) => {
   //   res.send("liste Jeux");
@@ -76,30 +77,50 @@ app.get("/listeJeux/:id", (req, res) => {
   });
 });
 
-app.post("/addGame", (req, res) => {
-  //   jeux.push(req.body);
+app.post("/addGame", 
+    body("jeu").isString(),
+    body("description").isString(),
+
+    (req, res) => 
+  {
   jeu = req.body.jeu;
   description = req.body.description;
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()){
+      return res.status(400).json({errors: errors.array()});
+  }
+
+  db.query(
+      "INSERT INTO jeux (jeu, description, image, logo) VALUES (?,?,?,?)",
+      [jeu, description,"1","1"],
+      function(error, results)
+      {
+        if(error) throw error;
+        return res.status(200).send ({results, message: "game has been added"})
+        }
+  );
 });
 
-app.post("/addUser",
+app.post(
+  "/addUser",
 
-    body('firstname').isString(), 
-    body('lastname').isString(),
-    body('mail').isEmail(),
-    body('pseudo').isString(),
-    body('password').isLength({min: 5}),
-    (req, res)=> {
+  body("firstname").isString(),
+  body("lastname").isString(),
+  body("mail").isEmail(),
+  body("pseudo").isString(),
+  body("password").isLength({ min: 5 }),
+  (req, res) => {
     //   jeux.push(req.body);
-    firstname = req.body.firstname ;
-    lastname = req.body.lastname ;
-    pseudo = req.body.pseudo ;
-    mail = req.body.mail ;
-    password = req.body.password ;
+    firstname = req.body.firstname;
+    lastname = req.body.lastname;
+    pseudo = req.body.pseudo;
+    mail = req.body.mail;
+    password = req.body.password;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() });
     }
 
     console.log(firstname, lastname, pseudo, mail, password);
@@ -113,7 +134,8 @@ app.post("/addUser",
           .send({ results, message: "User has been created" });
       }
     );
-  });
+  }
+);
 
 app.put("/listeJeux/:id", (req, res) => {
   const id = parseInt(req.params.id);
