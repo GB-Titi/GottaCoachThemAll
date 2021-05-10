@@ -51,7 +51,7 @@ exports.findAll = (req, res) => {
         });
 };
 
-// Find a single User with an id
+// Find a one User with its id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
