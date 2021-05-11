@@ -1,24 +1,24 @@
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", {
-      firstname: {
+    firstname: {
         type: Sequelize.STRING
-      },
-      lastname: {
+    },
+    lastname: {
         type: Sequelize.STRING
-      },
-      pseudo: {
+    },
+    pseudo: {
         type: Sequelize.STRING
-      },
-      mail: {
+    },
+    mail: {
         type: Sequelize.STRING
-      },
-      mdp: {
+    },
+    mdp: {
         type: Sequelize.STRING
-      },
-      image_profil: {
+    },
+    image_profil: {
         type: Sequelize.STRING
-      },
+    },
     });
-  
+
     return User;
-  };
+};

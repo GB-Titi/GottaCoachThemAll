@@ -35,11 +35,25 @@ db.coaches.belongsTo(db.users, {
   foreignKey: "userId",
   as: "user",
 });
-db.roles.hasMany(db.users, { as: 'users '});
-db.users.belongsTo(db.roles, {
-  foreignKey: "roleId",
-  as: "role",
-});
+// db.roles.hasMany(db.users, { as: 'users '});
+// db.users.belongsTo(db.roles, {
+//   foreignKey: "roleId",
+//   as: "role",
+// });
+
+
+db.roles.belongsToMany(db.users, {
+    through: "user_roles",
+    foreignKey: "roleId",
+    otherKey: "userId"
+  });
+  db.users.belongsToMany(db.roles, {
+    through: "user_roles",
+    foreignKey: "userId",
+    otherKey: "roleId"
+  });
+db.ROLES = ["user", "admin", "moderator"];
+
 
 db.coaches.hasMany(db.coaching, {as : 'coaching'})
 db.coaching.belongsTo(db.coaches, 

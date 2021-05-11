@@ -9,10 +9,13 @@ var corsOptions = {
 };
 
 const db = require("./app/models");
+const Role = db.roles;
 
-db.sequelize.sync({ force: true }).then(() => {
-    console.log("Drop and re-sync db.");
-  });
+// db.sequelize.sync({ force: true }).then(() => {
+//     console.log("Drop and re-sync db.");
+//     initial();
+
+//   });
 
 
 
@@ -31,6 +34,7 @@ res.json({ message: "Test GCTA" });
 
 require("./app/routes/user.routes")(app);
 require("./app/routes/coach.routes")(app);
+require("./app/routes/auth.routes")(app);
 // require("./app/routes/jeux.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -39,3 +43,20 @@ console.log(`serveur à l'écoute : http://localhost:${PORT} .`);
 });
 
 
+
+function initial() {
+    Role.create({
+      id: 1,
+      nom: "user"
+    });
+   
+    Role.create({
+      id: 2,
+      nom: "moderator"
+    });
+   
+    Role.create({
+      id: 3,
+      nom: "admin"
+    });
+  }
