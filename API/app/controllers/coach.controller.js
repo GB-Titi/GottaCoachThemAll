@@ -1,6 +1,6 @@
 const db = require("../models");
-const coach = db.coachs;
-const user = db.users;
+const Coach = db.coachs;
+const User = db.users;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => 

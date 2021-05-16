@@ -1,6 +1,10 @@
 const db = require("../models");
 const User = db.users;
 const Op = db.Sequelize.Op;
+const Role = db.roles;
+
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -12,17 +16,17 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create a Users
+    // Create a User
     const user = {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         pseudo: req.body.pseudo,
         mail: req.body.mail,
-        mdp: req.body.mdp
+        mdp: bcrypt.hashSync(req.body.mdp, 8)
         
     };
     console.log(user.firstname);
-    // Save Users in the database
+    // Save User in the database
     User.create(user)
         .then((data) => {
             res.send(data);
@@ -35,7 +39,7 @@ exports.create = (req, res) => {
         });
 };
 
-// Retrieve all Users from the database.
+// Retrieve all User from the database.
 exports.findAll = (req, res) => {
     const pseudo = req.query.pseudo;
     var condition = pseudo ? { pseudo: { [Op.like]: `%${pseudo}%` } } : null;
@@ -47,7 +51,7 @@ exports.findAll = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Some error occurred while retrieving games."
             });
         });
 };
@@ -130,6 +134,6 @@ exports.allAccess = (req, res) => {
     res.status(200).send("Admin Content.");
   };
   
-  exports.moderatorBoard = (req, res) => {
-    res.status(200).send("Moderator Content.");
+  exports.coachBoard = (req, res) => {
+    res.status(200).send("coach Content.");
   };
