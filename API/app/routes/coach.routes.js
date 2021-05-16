@@ -5,14 +5,18 @@ module.exports = (app) => {
     router.post("/", coaches.create);
     // router.get("/", coaches.findAll);
 
-    // Retrieve a single Tutorial with id
-    router.get("/:id", coaches.findOne);
+    // Retrieve a single coach with id
+    // router.get("/:id", coaches.findAll);
 
-    // Update a Tutorial with id
-    router.put("/:id", coaches.update);
+    // router.get("/:id", coaches.findAllByUser);
 
-    // Delete a Tutorial with id
-    router.delete("/:id", coaches.delete);
+    // router.get("/:id", coaches.findAllByCoach);
+
+    // // // Update a coach with id
+    // // router.put("/:id", coaches.update);
+
+    // // Delete a coach with id
+    // router.delete("/:id", coaches.delete);
 
     app.use("/api/coaches", router);
 };
