@@ -35,6 +35,7 @@ res.json({ message: "Test GCTA" });
 require("./app/routes/user.routes")(app);
 require("./app/routes/coach.routes")(app);
 require("./app/routes/auth.routes")(app);
+require("./app/routes/reservation.routes")(app);
 // require("./app/routes/jeux.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -52,7 +53,7 @@ function initial() {
    
     Role.create({
       id: 2,
-      nom: "moderator"
+      nom: "coach"
     });
    
     Role.create({

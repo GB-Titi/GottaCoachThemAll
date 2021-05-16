@@ -52,7 +52,7 @@ db.roles.belongsToMany(db.users, {
     foreignKey: "userId",
     otherKey: "roleId"
   });
-db.ROLES = ["user", "admin", "moderator"];
+db.ROLES = ["user", "coach", "admin"];
 
 
 db.coaches.hasMany(db.coaching, {as : 'coaching'})

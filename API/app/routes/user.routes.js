@@ -1,5 +1,6 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
+const { Router } = require("express");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -19,9 +20,9 @@ module.exports = function(app) {
   );
 
   app.get(
-    "/api/test/mod",
-    [authJwt.verifyToken, authJwt.isModerator],
-    controller.moderatorBoard
+    "/api/test/coach",
+    [authJwt.verifyToken, authJwt.isCoach],
+    controller.coachBoard
   );
 
   app.get(
@@ -29,6 +30,16 @@ module.exports = function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
+
+  //Read (One, and all)
+  app.get("/api/users/:id", controller.findOne);
+  app.get("/api/users", controller.findAll);
+  
+  //Update a user
+  app.put("/:id", controller.update);
+
+  //delete a user
+  app.delete("/api/users/:id", controller.delete);
 };
 
 
