@@ -4,7 +4,7 @@ module.exports = (app) => {
 
     router.post("/", reservations.create);
     
-    // router.get("/", reservations.findAll);
+    router.get("/", reservations.findAll);
 
     // // Retrieve a single coach with id
     // router.get("/:id", reservations.findAllByUser);

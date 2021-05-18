@@ -30,6 +30,42 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
 
+    Reservation.findAll({
+        include: [
+            {
+                model: db.coaches,
+                as: 'coaches',
+                attributes:['id'],
+                include: [
+                    {
+                        model: db.users,
+                        as: 'user',
+                        attributes : ['id','pseudo']
+                    },
+                    {
+                        model: db.jeux,
+                        as : 'jeux',
+                        attributes : ['jeu']
+
+                    }
+                ]
+            },
+            { 
+                model : db.users,
+                as : 'users',
+                attributes : ['id', 'pseudo']
+            }
+        ]
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving Reservations."
+            });
+        });
 }
 
 // exports.findAllByUser = (req, res) => {
