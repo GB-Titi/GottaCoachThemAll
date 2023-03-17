@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Ajouter des éléments</h1>
+        <h2>Ajouter un jeu</h2>
+        <form action="/addGame" method="post">
+            <label for="jeu">Nom du jeu</label>
+            <input type="text" name="jeu" id="jeu">
+
+            <label for="name">Description</label>
+            <input type="description" name="description" id="description">
+            <input type="submit" value="Ajouter" />
+        </form>
+
+        <h2>Ajouter un user</h2>
+        <form action="/addUser" method="post">
+            <label for="jeu">Prénom</label>
+            <input type="text" name="firstname" id="firstname">
+
+            <label for="jeu">Nom</label>
+            <input type="text" name="lastname" id="lastname">
+
+            <label for="pseudo">Pseudo</label>
+            <input type="text" name="pseudo" id="pseudo">
+
+            <label for="mail">Mail</label>
+            <input type="email" name="mail" id="mail">
+
+            <label for="mail">mdp</label>
+            <input type="password" name="password" id="password">
+
+            <input type="submit" value="Ajouter" />
+        </form>
+
+        <h2>Ajouter une team</h2>
+        <form action="/addTeam" method="post">
+            <label for="jeu">Nom du jeu</label>
+            <input type="text" name="jeu" id="jeu">
+
+            <label for="name">Description</label>
+            <input type="description" name="description" id="description">
+            <input type="submit" value="Ajouter" />
+        </form>
+
+        
+    </body>
+</html>
