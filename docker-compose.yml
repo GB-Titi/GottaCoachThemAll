@@ -1,0 +1,24 @@
+version: '3'
+services:
+  api:
+    build: ./api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  app:
+    build: ./app
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+    depends_on:
+      - api
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=mypassword
+    ports:
+      - "3306:3306"
