@@ -1,90 +1,125 @@
-import { Text, Alert, Button, View, StyleSheet, TextInput, Image } from 'react-native';
-import * as React from 'react';
+import {
+  Text,
+  Alert,
+  Button,
+  View,
+  StyleSheet,
+  TextInput,
+  Image,
+  Pressable,
+} from "react-native";
+import React, { useState } from "react";
 
-class Connexion extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      username: '',
-      password: '',
-    };
-  }
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-  go = () => {
-           const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            if (reg.test(this.state.email) === true){
-               alert('valid');
-           }
-           else{
-               alert();
-           }
- 
-  }
+
+
+const Connexion = ({ navigation }) => {
+  const [mail, setMail] = useState("");
+  const [mdp, setMdp] = useState("");
+  const [connexionEchouee, setConnexionEchouee] = useState(false);
+
+  const handleConnexion = async () => {
+    try {
+      // Envoyez la demande à votre API avec les identifiants
+      const response = await fetch("http://127.0.0.1:8090/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ mail, mdp }),
+      });
+
+      if (response.ok) {
+        // Si les identifiants sont corrects, naviguez vers la page "Profile"
+        const data = await response.json();
+
+        await AsyncStorage.setItem("authToken", data.accessToken);
+        await AsyncStorage.setItem("firstname", data.firstname)
+        await AsyncStorage.setItem("lastname", data.lastname);
+        await AsyncStorage.setItem("mail", data.mail);
+        await AsyncStorage.setItem("pseudo", data.pseudo);
+        await AsyncStorage.setItem("data", JSON.stringify(data));
+        console.log("Token enregistré :", await AsyncStorage.getItem("authToken"));
+        
+        navigation.navigate("Profile", { mail });
+      } else {
+        // Si les identifiants sont incorrects, affichez un message d'erreur
+        setConnexionEchouee(true);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la connexion :", error);
+      // Gérez les erreurs ici
+    }
+  };
+
+  return(
+  <View style={styles.container}>
+    <Image
+      style={styles.tinyLogo}
+      source={require("../assets/logo/logo.png")}
+    />
+    <Text style={styles.titre}>
+      Connectez vous afin d'utiliser toutes les fonctionnalitées
+    </Text>
+    <Text style={styles.label}>Nom d'utilisateur :</Text>
+    <TextInput
+      style={styles.input}
+      onChangeText={setMail}
+      value={mail}
+      placeholder="Entrez votre nom d'utilisateur"
+    />
+
+    <Text style={styles.label}>Mot de passe :</Text>
+    <TextInput
+      style={styles.input}
+      onChangeText={setMdp}
+      value={mdp}
+      placeholder="Entrez votre mot de passe"
+      secureTextEntry
+    />
+    {connexionEchouee && (
+      <Text style={styles.erreurText}>
+        La connexion a échoué. Veuillez réessayer.
+      </Text>
+    )}
+    <Pressable
+      title={"Login"}
+      style={styles.appButtonContainer}
+      onPress={handleConnexion}
+    >
+      <Text style={styles.appButtonText}>Connexion</Text>
+    </Pressable>
+  </View>
+);
   
-  onLogin() {
-    const { username, password } = this.state;
-
-    Alert.alert('Informations utilisateur : ', `${username} + ${password}`);
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Image
-            style={styles.tinyLogo}
-            source={require('../assets/logo/logo.png')}
-        />
-        <Text style={styles.titre}>Connectez vous afin d'utiliser toutes les fonctionnalitées</Text>
-            <TextInput
-            value={this.state.username}
-            onChangeText={(username) => this.setState({ username })}
-            label='Email'
-            style={styles.input}
-            />
-            <TextInput
-            value={this.state.password}
-            onChangeText={(password) => this.setState({ password })}
-            label='Password'
-            secureTextEntry={true}
-            style={styles.input}
-            />
-            
-            <Button
-            title={'Login'}
-            style={styles.appButtonContainer}
-            onPress={this.onLogin.bind(this)}
-            />
-    </View>
-    );
-  }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: 'white',
+    alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "white",
   },
   input: {
-    width: '75%',
+    width: "75%",
     height: 44,
     padding: 10,
     borderWidth: 0.2,
-    borderColor: 'grey',
+    borderColor: "grey",
     borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    borderBottomColor: "black",
     marginBottom: 25,
   },
   inputext: {
     width: 200,
     height: 44,
     padding: 10,
-    textAlign:'center',
-    fontWeight:'bold',
+    textAlign: "center",
+    fontWeight: "bold",
     borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    borderBottomColor: "black",
     marginBottom: 25,
   },
   tinyLogo: {
@@ -92,23 +127,27 @@ const styles = StyleSheet.create({
     height: 250,
   },
   titre: {
-      fontSize: 25,
-      textAlign: 'center',
-      marginBottom: 20,
+    fontSize: 25,
+    textAlign: "center",
+    marginBottom: 20,
   },
   appButtonContainer: {
     elevation: 8,
-    backgroundColor: "#009688",
-    borderRadius: 10,
-    paddingVertical: 10,
+    backgroundColor: "#0EB9C7",
+    borderRadius: 50,
+
     paddingHorizontal: 12,
+    paddingVertical: 10,
+    marginBottom: 10,
+  },
+
+  appButtonText: {
     fontSize: 18,
     color: "#fff",
     fontWeight: "bold",
     alignSelf: "center",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
 });
 
-
-export default Connexion //On exporte le composant pour l'utiliser ailleur
+export default Connexion; //On exporte le composant pour l'utiliser ailleur
