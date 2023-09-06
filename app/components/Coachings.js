@@ -9,20 +9,22 @@ import {
   ActivityIndicator,
   Pressable,
   TouchableOpacity,
+  Image,
 } from "react-native"; //on importe les composants --> obligatoire
+import gameToId from "../helpers/gameToId";
+
 import game from "../helpers/gamesData";
 import GamesItem from "./GamesItem";
-import gameToId from "../helpers/gameToId";
-const Search = ({ navigation }) => {
+const CoachingsScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
-  const [tutorials, setTutorials] = useState([]);
+  const [coaches, setCoaches] = useState([]);
 
   useEffect(() => {
     // Effectuez une demande à l'API pour récupérer les tutoriels
-    fetch("http://localhost:8090/api/tutorials")
+    fetch("http://localhost:8090/api/coachs")
       .then((response) => response.json())
       .then((data) => {
-        setTutorials(data); // Mettez à jour l'état avec les données des tutoriels
+        setCoaches(data); // Mettez à jour l'état avec les données des tutoriels
         setLoading(false); // Marquez le chargement comme terminé
       })
       .catch((error) => {
@@ -37,34 +39,33 @@ const Search = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.Titre}>Tutoriels</Text>
-      <TextInput
-        onSubmitEditing={() => this.GamesItem}
-        placeholder="Nom du jeu"
-        style={styles.textinput}
-      />
-      <Pressable
-        style={styles.btn_recherche}
-        title="Rechercher"
-        onPress={() => {}}
-      >
-        <Text style={styles.appButtonText}>Rechercher</Text>
-      </Pressable>
+      <Text style={styles.Titre}>Coach</Text>
 
       <FlatList
-        data={tutorials}
+        data={coaches}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
               // Naviguez vers la page de détail du tutoriel avec l'identifiant du tutoriel en tant que paramètre
-              navigation.navigate("TutorialDetailPage", { tutorialId: item.id });
+              navigation.navigate("CoachDetailPage", { coachId: item.id });
             }}
           >
             <View style={styles.tutorialItem}>
-              <Text style={styles.gameTitle}>
-                {gameToId[item.jeuxId - 1]} : {item.title}
-              </Text>
+              <View style={styles.coachItem}>
+                {/* Image du coach (10% de la largeur) */}
+                <Image
+                  source={require("../assets/avatar.png")}
+                  style={styles.coachImage}
+                />
+                {/* Informations du coach (90% de la largeur) */}
+                <View style={styles.coachInfo}>
+                  <Text style={styles.coachName}>{item.user.firstname} {item.user.lastname}</Text>
+                  <Text>{gameToId[item.jeuxId - 1]}</Text>
+                  <Text > {item.description}</Text>
+                  {/* Affichez d'autres informations du coach ici */}
+                </View>
+              </View>
               <View
                 style={{
                   borderBottomColor: "#E8E8E8",
@@ -175,6 +176,25 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     color: "#000000",
   },
+  coachItem: {
+    flexDirection: 'row', // Disposition horizontale
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  coachImage: {
+    aspectRatio: 1, // Pour conserver le ratio de l'image (carrée)
+    marginRight: 10,
+    borderRadius: 50, // Pour obtenir une forme circulaire
+    height: 50,
+    width: 50,
+  },
+  coachInfo: {
+    flex: 1, // 90% de la largeur de l'écran
+  },
+  coachName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
 
-export default Search; //On exporte le composant pour l'utiliser ailleur
+export default CoachingsScreen; //On exporte le composant pour l'utiliser ailleur

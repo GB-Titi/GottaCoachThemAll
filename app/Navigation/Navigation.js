@@ -9,6 +9,13 @@ import Inscription from "../components/Inscription";
 import Accueil from "../components/Accueil";
 import * as React from "react";
 import Profile from "../components/Profile";
+import TutorialDetailPage from "../components/TutorialDetailPage";
+import Coachings from "../components/Coachings";
+import CoachDetailPage from "../components/CoachDetailPage";
+
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 function HomeScreen() {
   return <Accueil></Accueil>;
@@ -16,14 +23,28 @@ function HomeScreen() {
 
 function CoachingsScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Coachings</Text>
-    </View>
+    <Stack.Navigator> 
+      <Stack.Screen name="Coachings" component={Coachings}
+      options={{title: "Coachings"}}/>
+      <Stack.Screen name="CoachDetailPage" component={CoachDetailPage}
+      options={{title: "Coach"}}/>
+      <Stack.Screen name="TutorialDetailPage" component={TutorialDetailPage} 
+      options={{title: "Tutoriel"}}/>
+    </Stack.Navigator>
   );
 }
 
 function TutosScreen() {
-  return <Search></Search>;
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Search" component={Search} 
+       options={{title: "Rechercher un tutoriel"}}
+      />
+      <Stack.Screen name="TutorialDetailPage" component={TutorialDetailPage} 
+      options={{title: "Tutoriel"}}/>
+
+    </Stack.Navigator>
+  );
 }
 
 function EsportScreen() {
@@ -33,13 +54,14 @@ function EsportScreen() {
     </View>
   );
 }
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+
 
 function ConnexionScreen() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Connexion" component={Connexion} />
+      <Stack.Screen name="Profile" component={Profile}  options={{title: "Profil"}}/>
+
     </Stack.Navigator>
   );
 }
@@ -52,13 +74,7 @@ function InscriptionScreen() {
   );
 }
 
-function ProfileScreen() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Profile" component={Profile} />
-    </Stack.Navigator>
-  );
-}
+
 
 export default function App() {
   return (
@@ -73,6 +89,10 @@ export default function App() {
               iconName = focused ? "home" : "home-outline";
             }
 
+            if (route.name === "Inscription") {
+              iconName = focused ? "trophy" : "trophy-outline";
+            }
+
             if (route.name === "Coachings") {
               iconName = focused ? "body" : "body-outline";
             }
@@ -81,9 +101,6 @@ export default function App() {
               iconName = focused ? "videocam" : "videocam-outline";
             }
 
-            if (route.name === "Esport") {
-              iconName = focused ? "trophy" : "trophy-outline";
-            }
 
             if (route.name === "Connexion") {
               iconName = focused ? "apps" : "apps-outline";
@@ -107,14 +124,11 @@ export default function App() {
           },
         }}
       >
-        <Tab.Screen name="Inscription" component={InscriptionScreen} />
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Coachings" component={CoachingsScreen} />
         <Tab.Screen name="Tutos" component={TutosScreen} />
-        <Tab.Screen name="Esport" component={EsportScreen} />
+        <Tab.Screen name="Inscription" component={InscriptionScreen} />
         <Tab.Screen name="Connexion" component={ConnexionScreen} />
-        <Stack.Screen name="Profile" component={Profile} />
-
       </Tab.Navigator>
     </NavigationContainer>
   );

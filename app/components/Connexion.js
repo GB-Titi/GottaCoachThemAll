@@ -8,16 +8,28 @@ import {
   Image,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
 
 const Connexion = ({ navigation }) => {
   const [mail, setMail] = useState("");
   const [mdp, setMdp] = useState("");
   const [connexionEchouee, setConnexionEchouee] = useState(false);
+
+  useEffect(() => {
+    // Vérifiez si le stockage contient des données (par exemple, des informations de connexion)
+    AsyncStorage.getItem('authToken')
+      .then((userData) => {
+        if (userData) {
+          // Si des données existent, redirigez vers la page de profil
+          navigation.replace('Profile');
+        }
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la vérification du stockage :', error);
+      });
+  }, [navigation]);
 
   const handleConnexion = async () => {
     try {
@@ -52,6 +64,8 @@ const Connexion = ({ navigation }) => {
       // Gérez les erreurs ici
     }
   };
+
+  
 
   return(
   <View style={styles.container}>

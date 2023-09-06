@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, Image, Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Profile = ({ route, navigation }) => {
   useEffect(() => {
-    // Pour cacher l'onglet, utilisez setOptions avec tabBarVisible:false
-    // navigation.setOptions({
-    //   tabBarVisible: false,
-    // });
+    //Pour cacher l'onglet, utilisez setOptions avec tabBarVisible:false
+    navigation.setOptions({
+      tabBarVisible: false,
+    });
   }, []);
 
   const [authToken, setAuthToken] = useState("");
@@ -50,35 +50,41 @@ const Profile = ({ route, navigation }) => {
   }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Profil de l'utilisateur :</Text>
-      <View style={styles.userInfo}>
-        <Text style={styles.userInfoLabel}>Nom :</Text>
-        <Text style={styles.userInfoText}>{lastname} </Text>
+      <View style={styles.blueTop}>
+        <View style={styles.profileImageContainer}>
+          <Image
+            source={require("../assets/avatar.png")}
+            style={styles.profileImage}
+          />
+        </View>
       </View>
+      <View style={styles.additionalInfo}>
+        <View style={styles.identity}>
+          <Text style={styles.identity}>
+            {firstname} {lastname}
+          </Text>
+        </View>
+        <View style={styles.username}>
+          <Text style={styles.username}>{pseudo}</Text>
+        </View>
+        
+        <View style={styles.identity}>
 
-      <View style={styles.userInfo}>
-        <Text style={styles.userInfoLabel}>Prénom :</Text>
-        <Text style={styles.userInfoText}>{firstname}
-        </Text>
+        <Pressable
+          title="Se déconnecter"
+          style={styles.logoutButton}
+          onPress={() => {
+            // Ajoutez ici la logique de déconnexion (si nécessaire)
+            AsyncStorage.clear();
+
+            navigation.navigate("Connexion"); // Redirigez vers la page de connexion
+          }}
+        >
+      
+          <Text style={styles.appButtonText}>Se deconnecter</Text>
+        </Pressable>
+        </View>
       </View>
-
-      <View style={styles.userInfo}>
-        <Text style={styles.userInfoLabel}>Adresse e-mail :</Text>
-        <Text style={styles.userInfoText}>{mail}</Text>
-      </View>
-
-      <View style={styles.userInfo}>
-        <Text style={styles.userInfoLabel}>Username :</Text>
-        <Text style={styles.userInfoText}>{pseudo}</Text>
-      </View>
-
-      <Button
-        title="Se déconnecter"
-        onPress={() => {
-          // Ajoutez ici la logique de déconnexion (si nécessaire)
-          navigation.navigate("Connexion"); // Redirigez vers la page de connexion
-        }}
-      />
     </View>
   );
 };
@@ -86,8 +92,53 @@ const Profile = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: "#ffffff",
+    backgroundColor: "white",
+  },
+  blueTop: {
+    flex: 0.5, // 30% de l'écran
+    backgroundColor: "#0EB9C7",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 95,
+  },
+  profileImageContainer: {
+    width: 150, // Largeur de l'image
+    height: 150, // Hauteur de l'image
+    borderRadius: 75, // Pour arrondir l'image (la moitié de la largeur/hauteur)
+    borderColor: "white", // Couleur de la bordure blanche
+    borderWidth: 5, // Épaisseur de la bordure
+    overflow: "hidden", // Pour permettre le débordement de l'image
+    top: 100,
+  },
+  profileImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+  additionalInfo: {
+    flex: 1, // 70% de l'écran
+    alignItems: "center",
+    marginTop: 20,
+
+    padding: 60,
+    width: "80%",
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  identity: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 10,
+    alignItems: "center",
+  },
+  username: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+    alignItems: "center",
   },
   label: {
     fontSize: 20,
@@ -108,6 +159,24 @@ const styles = StyleSheet.create({
   },
   additionalInfo: {
     marginTop: 20,
+  },
+  logoutButton: {
+    elevation: 8,
+    backgroundColor: "#0EB9C7",
+    borderRadius: 50,
+
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    marginBottom: 10,
+    width: 200,
+  },
+
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase",
   },
 });
 
